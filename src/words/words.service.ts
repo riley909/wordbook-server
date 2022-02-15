@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { Repository } from 'typeorm';
 import { CreateWordDto } from './dto/create-word.dto';
+import { FindWordsDto } from './dto/find-word.dto';
 import { Word } from './entities/word.entity';
 
 @Injectable()
@@ -41,5 +42,22 @@ export class WordsService {
       message: `word with target code "${target_code}" is created`,
       word,
     };
+  }
+
+  async findWords(findWordsDto: FindWordsDto, user: User) {
+    const { folderId } = findWordsDto;
+    const query = this.wordsRepository.createQueryBuilder('word');
+    query.where({ user });
+
+    if (folderId) {
+      query.andWhere('word.folderId = :folderId', { folderId });
+    }
+
+    try {
+      const words = await query.getMany();
+      return words;
+    } catch (error) {
+      console.log(error.stack);
+    }
   }
 }
