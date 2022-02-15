@@ -70,6 +70,9 @@ export class WordsService {
     if (result.affected === 0) {
       throw new NotFoundException(`word with id "${id}" not found`);
     }
+    return {
+      message: `word with id "${id}" is deleted`,
+    };
   }
 
   async updateWordStatus(id: number, user: User) {
