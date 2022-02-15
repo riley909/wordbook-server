@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -33,5 +34,10 @@ export class WordsController {
   @Delete(':id')
   deleteWord(@Param('id') id: number, @GetUser() user: User) {
     return this.wordsService.deleteWord(id, user);
+  }
+
+  @Patch(':id')
+  updateWordStatus(@Param('id') id: number, @GetUser() user: User) {
+    return this.wordsService.updateWordStatus(id, user);
   }
 }

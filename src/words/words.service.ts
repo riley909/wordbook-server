@@ -71,4 +71,20 @@ export class WordsService {
       throw new NotFoundException(`word with id "${id}" not found`);
     }
   }
+
+  async updateWordStatus(id: number, user: User) {
+    const word = await this.wordsRepository.findOne({ id, user });
+
+    if (word) {
+      if (word.status === 0) word.status = 1;
+      else word.status = 0;
+      await this.wordsRepository.save(word);
+      return {
+        message: `word with id "${id}" status updated`,
+        word,
+      };
+    } else {
+      throw new NotFoundException(`word with id "${id}" not found`);
+    }
+  }
 }
