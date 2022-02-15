@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { FoldersModule } from './folders/folders.module';
+import { WordsModule } from './words/words.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { FoldersModule } from './folders/folders.module';
     }),
     FoldersModule,
     AuthModule,
+    WordsModule,
   ],
 })
 export class AppModule {}

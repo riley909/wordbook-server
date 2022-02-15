@@ -1,4 +1,5 @@
 import { Folder } from 'src/folders/folder.entity';
+import { Word } from 'src/words/entities/word.entity';
 import {
   Column,
   CreateDateColumn,
@@ -36,4 +37,7 @@ export class User {
 
   @OneToMany((_type) => Folder, (folder) => folder.user, { eager: true })
   folders: Folder[];
+
+  @OneToMany((_type) => Word, (word) => word.user, { eager: true })
+  words: Word[];
 }
