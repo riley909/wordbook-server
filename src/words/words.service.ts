@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { Repository } from 'typeorm';
@@ -58,6 +62,29 @@ export class WordsService {
       return words;
     } catch (error) {
       console.log(error.stack);
+    }
+  }
+
+  async deleteWord(id: number, user: User) {
+    const result = await this.wordsRepository.delete({ id, user });
+    if (result.affected === 0) {
+      throw new NotFoundException(`word with id "${id}" not found`);
+    }
+  }
+
+  async updateWordStatus(id: number, user: User) {
+    const word = await this.wordsRepository.findOne({ id, user });
+
+    if (word) {
+      if (word.status === 0) word.status = 1;
+      else word.status = 0;
+      await this.wordsRepository.save(word);
+      return {
+        message: `word with id "${id}" status updated`,
+        word,
+      };
+    } else {
+      throw new NotFoundException(`word with id "${id}" not found`);
     }
   }
 }
