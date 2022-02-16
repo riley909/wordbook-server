@@ -5,6 +5,7 @@ import { getConnectionOptions } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { FoldersModule } from './folders/folders.module';
 import { WordsModule } from './words/words.module';
+import { TestResultsModule } from './test-results/test-results.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { WordsModule } from './words/words.module';
     FoldersModule,
     AuthModule,
     WordsModule,
+    TestResultsModule,
   ],
 })
 export class AppModule {}
