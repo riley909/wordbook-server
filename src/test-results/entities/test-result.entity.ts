@@ -22,8 +22,8 @@ export class TestResult {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
-  wrongAnswers: string;
+  @Column('int', { array: true })
+  wrongAnswers: number[];
 
   @ManyToOne((_type) => User, (user) => user.testResults, { eager: false })
   @Exclude({ toPlainOnly: true })
