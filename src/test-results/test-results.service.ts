@@ -39,4 +39,14 @@ export class TestResultsService {
     }
     return testResult;
   }
+
+  async deleteTestResult(id: number, user: User) {
+    const result = await this.testResultsRepository.delete({ id, user });
+    if (result.affected === 0) {
+      throw new NotFoundException(`Test result with id "${id}" not found`);
+    }
+    return {
+      message: `Test result with id "${id}" is deleted`,
+    };
+  }
 }
