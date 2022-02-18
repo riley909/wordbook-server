@@ -1,4 +1,12 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
@@ -16,5 +24,20 @@ export class TestResultsController {
     @GetUser() user: User,
   ) {
     return this.testResultsService.createTestResult(createTestResultDto, user);
+  }
+
+  @Get()
+  getTestResults(@GetUser() user: User) {
+    return this.testResultsService.getTestResults(user);
+  }
+
+  @Get(':id')
+  getTestResultById(@Param('id') id: number, @GetUser() user: User) {
+    return this.testResultsService.getTestResultById(id, user);
+  }
+
+  @Delete(':id')
+  deleteTestResult(@Param('id') id: number, @GetUser() user: User) {
+    return this.testResultsService.deleteTestResult(id, user);
   }
 }
