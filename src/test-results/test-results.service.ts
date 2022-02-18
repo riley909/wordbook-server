@@ -26,4 +26,9 @@ export class TestResultsService {
       testResult,
     };
   }
+
+  async getTestResults(user: User) {
+    const testResults = await this.testResultsRepository.find({ user });
+    return testResults;
+  }
 }
