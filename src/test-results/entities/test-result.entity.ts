@@ -13,17 +13,14 @@ export class TestResult {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  totalNum: number;
-
-  @Column()
-  passNum: number;
-
-  @CreateDateColumn()
-  createdAt: Date;
+  @Column('int', { array: true })
+  problems: number[];
 
   @Column('int', { array: true })
   wrongAnswers: number[];
+
+  @CreateDateColumn()
+  createdAt: Date;
 
   @ManyToOne((_type) => User, (user) => user.testResults, { eager: false })
   @Exclude({ toPlainOnly: true })
