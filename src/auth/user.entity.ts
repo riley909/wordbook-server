@@ -1,4 +1,5 @@
 import { Folder } from 'src/folders/folder.entity';
+import { StudyLog } from 'src/study-logs/entities/study-log.entity';
 import { TestResult } from 'src/test-results/entities/test-result.entity';
 import { Word } from 'src/words/entities/word.entity';
 import {
@@ -46,4 +47,7 @@ export class User {
     eager: true,
   })
   testResults: TestResult[];
+
+  @OneToMany((_type) => StudyLog, (studyLog) => studyLog.user, { eager: true })
+  studyLogs: StudyLog[];
 }

@@ -1,6 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { User } from 'src/auth/user.entity';
-import { StudyLog } from 'src/study-logs/entities/study-log.entity';
+import { TestResult } from 'src/test-results/entities/test-result.entity';
 import {
   Column,
   CreateDateColumn,
@@ -11,23 +11,20 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class TestResult {
+export class StudyLog {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('int', { array: true })
-  problems: number[];
-
-  @Column('int', { array: true })
-  wrongAnswers: number[];
+  @Column()
+  content: string;
 
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne((_type) => User, (user) => user.testResults, { eager: false })
+  @ManyToOne((_type) => User, (user) => user.studyLogs, { eager: false })
   @Exclude({ toPlainOnly: true })
   user: User;
 
-  @ManyToMany((_type) => StudyLog)
-  studyLogs: StudyLog[];
+  @ManyToMany((_type) => TestResult)
+  testResults: TestResult[];
 }

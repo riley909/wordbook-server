@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { FoldersModule } from './folders/folders.module';
 import { WordsModule } from './words/words.module';
 import { TestResultsModule } from './test-results/test-results.module';
+import { StudyLogsModule } from './study-logs/study-logs.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TestResultsModule } from './test-results/test-results.module';
     AuthModule,
     WordsModule,
     TestResultsModule,
+    StudyLogsModule,
   ],
 })
 export class AppModule {}
