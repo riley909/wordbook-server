@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
@@ -25,5 +33,10 @@ export class StudyLogsController {
     @GetUser() user: User,
   ) {
     return this.studyLogsService.getStudyLogs(getStudyLogsDto, user);
+  }
+
+  @Get(':id')
+  getStudyLogById(@Param('id') id: number, @GetUser() user: User) {
+    return this.studyLogsService.getStudyLogById(id, user);
   }
 }

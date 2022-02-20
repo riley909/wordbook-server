@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { TestResult } from 'src/test-results/entities/test-result.entity';
@@ -72,5 +72,13 @@ export class StudyLogsService {
     } catch (error) {
       console.log(error.stack);
     }
+  }
+
+  async getStudyLogById(id: number, user: User) {
+    const studyLog = await this.studyLogsRepository.findOne({ id, user });
+    if (!studyLog) {
+      throw new NotFoundException(`Study log with id "${id}" not found`);
+    }
+    return studyLog;
   }
 }
