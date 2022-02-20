@@ -6,6 +6,7 @@ import { TestResultsService } from 'src/test-results/test-results.service';
 import { In, Repository } from 'typeorm';
 import { CreateStudyLogDto } from './dto/create-study-log.dto';
 import { GetStudyLogsDto } from './dto/get-study-logs.dto';
+import { UpdateStudyLogContentDto } from './dto/update-study-log-content.dto';
 import { StudyLog } from './entities/study-log.entity';
 
 @Injectable()
@@ -80,5 +81,21 @@ export class StudyLogsService {
       throw new NotFoundException(`Study log with id "${id}" not found`);
     }
     return studyLog;
+  }
+
+  async updateStudyLogContent(
+    id: number,
+    updateStudyLogContentDto: UpdateStudyLogContentDto,
+    user: User,
+  ) {
+    const { content } = updateStudyLogContentDto;
+    const studyLog = await this.getStudyLogById(id, user);
+    studyLog.content = content;
+    await this.studyLogsRepository.save(studyLog);
+
+    return {
+      message: `Study log content with id "${id}" is updated`,
+      studyLog,
+    };
   }
 }
