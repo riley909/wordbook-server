@@ -5,6 +5,7 @@ import { TestResult } from 'src/test-results/entities/test-result.entity';
 import { TestResultsService } from 'src/test-results/test-results.service';
 import { In, Repository } from 'typeorm';
 import { CreateStudyLogDto } from './dto/create-study-log.dto';
+import { GetStudyLogsDto } from './dto/get-study-logs.dto';
 import { StudyLog } from './entities/study-log.entity';
 
 @Injectable()
@@ -32,5 +33,44 @@ export class StudyLogsService {
       message: `Study log with id "${result.id}" is created`,
       studyLog,
     };
+  }
+
+  async getStudyLogs(getStudyLogsDto: GetStudyLogsDto, user: User) {
+    // eslint-disable-next-line prefer-const
+    let { limit, offset, search, date } = getStudyLogsDto;
+    limit = limit || 10;
+    offset = offset || 1;
+
+    const query = await this.studyLogsRepository.createQueryBuilder(
+      'study-log',
+    );
+    query.where({ user });
+
+    if (search) {
+      query.andWhere('study-log.content ILIKE :search', {
+        search: `%${search}%`,
+      });
+    }
+
+    if (date) {
+      query.andWhere('Date(study-log.createdAt) = :date', {
+        date: date,
+      });
+    }
+
+    query.take(limit).skip(limit * (offset - 1));
+
+    try {
+      const total = await query.getCount();
+      const studyLogs = await query.getMany();
+      return {
+        total: total,
+        limit: limit,
+        currentPage: offset,
+        data: studyLogs,
+      };
+    } catch (error) {
+      console.log(error.stack);
+    }
   }
 }
