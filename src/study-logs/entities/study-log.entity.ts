@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -25,6 +26,10 @@ export class StudyLog {
   @Exclude({ toPlainOnly: true })
   user: User;
 
-  @ManyToMany((_type) => TestResult)
+  @ManyToMany((_type) => TestResult, (testResult) => testResult.studyLogs, {
+    nullable: true,
+    cascade: true,
+  })
+  @JoinTable()
   testResults: TestResult[];
 }

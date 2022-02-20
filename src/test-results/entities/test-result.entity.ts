@@ -28,6 +28,8 @@ export class TestResult {
   @Exclude({ toPlainOnly: true })
   user: User;
 
-  @ManyToMany((_type) => StudyLog)
+  @ManyToMany((_type) => StudyLog, (studyLog) => studyLog.testResults, {
+    nullable: true,
+  })
   studyLogs: StudyLog[];
 }
