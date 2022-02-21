@@ -19,8 +19,8 @@ export class Comment {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column('int', { array: true, nullable: true })
-  refComment: number[];
+  @Column({ nullable: true })
+  refComment: number;
 
   @ManyToOne((_type) => User, (user) => user.comments)
   user: User;
