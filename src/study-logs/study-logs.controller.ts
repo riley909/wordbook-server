@@ -14,7 +14,7 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
 import { CreateStudyLogDto } from './dto/create-study-log.dto';
 import { GetStudyLogsDto } from './dto/get-study-logs.dto';
-import { UpdateStudyLogContentDto } from './dto/update-study-log-content.dto';
+import { UpdateStudyLogDto } from './dto/update-study-log.dto';
 import { StudyLogsService } from './study-logs.service';
 
 @Controller('study-logs')
@@ -43,17 +43,13 @@ export class StudyLogsController {
     return this.studyLogsService.getStudyLogById(id, user);
   }
 
-  @Patch(':id/content')
-  updateStudyLogContent(
+  @Patch(':id')
+  updateStudyLog(
     @Param('id') id: number,
-    @Body() updateStudyLogContent: UpdateStudyLogContentDto,
+    @Body() updateStudyLogDto: UpdateStudyLogDto,
     @GetUser() user: User,
   ) {
-    return this.studyLogsService.updateStudyLogContent(
-      id,
-      updateStudyLogContent,
-      user,
-    );
+    return this.studyLogsService.updateStudyLog(id, updateStudyLogDto, user);
   }
 
   @Delete(':id')

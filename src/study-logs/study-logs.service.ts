@@ -2,11 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { TestResult } from 'src/test-results/entities/test-result.entity';
-import { TestResultsService } from 'src/test-results/test-results.service';
 import { In, Repository } from 'typeorm';
 import { CreateStudyLogDto } from './dto/create-study-log.dto';
 import { GetStudyLogsDto } from './dto/get-study-logs.dto';
-import { UpdateStudyLogContentDto } from './dto/update-study-log-content.dto';
+import { UpdateStudyLogDto } from './dto/update-study-log.dto';
 import { StudyLog } from './entities/study-log.entity';
 
 @Injectable()
@@ -83,14 +82,21 @@ export class StudyLogsService {
     return studyLog;
   }
 
-  async updateStudyLogContent(
+  async updateStudyLog(
     id: number,
-    updateStudyLogContentDto: UpdateStudyLogContentDto,
+    updateStudyLogDto: UpdateStudyLogDto,
     user: User,
   ) {
-    const { content } = updateStudyLogContentDto;
-    const studyLog = await this.getStudyLogById(id, user);
+    const { content, testResultId } = updateStudyLogDto;
+
+    const studyLog = await this.studyLogsRepository.findOne({ id, user });
+    const testResults = await this.testResultsRepository.find({
+      where: { id: In(testResultId) },
+    });
+
     studyLog.content = content;
+    studyLog.testResults = testResults;
+
     await this.studyLogsRepository.save(studyLog);
 
     return {
