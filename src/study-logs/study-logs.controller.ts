@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -53,5 +54,10 @@ export class StudyLogsController {
       updateStudyLogContent,
       user,
     );
+  }
+
+  @Delete(':id')
+  deleteStudyLog(@Param('id') id: number, @GetUser() user: User) {
+    return this.studyLogsService.deleteStudyLog(id, user);
   }
 }

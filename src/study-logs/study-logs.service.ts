@@ -98,4 +98,14 @@ export class StudyLogsService {
       studyLog,
     };
   }
+
+  async deleteStudyLog(id: number, user: User) {
+    const result = await this.studyLogsRepository.delete({ id, user });
+    if (result.affected === 0) {
+      throw new NotFoundException(`Study log with id "${id}" not found`);
+    }
+    return {
+      message: `Study log with id "${id}" is deleted`,
+    };
+  }
 }
