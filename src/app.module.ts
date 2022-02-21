@@ -7,6 +7,7 @@ import { FoldersModule } from './folders/folders.module';
 import { WordsModule } from './words/words.module';
 import { TestResultsModule } from './test-results/test-results.module';
 import { StudyLogsModule } from './study-logs/study-logs.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { StudyLogsModule } from './study-logs/study-logs.module';
     WordsModule,
     TestResultsModule,
     StudyLogsModule,
+    CommentsModule,
   ],
 })
 export class AppModule {}

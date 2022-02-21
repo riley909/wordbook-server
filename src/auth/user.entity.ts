@@ -1,3 +1,4 @@
+import { Comment } from 'src/comments/entities/comment.entity';
 import { Folder } from 'src/folders/folder.entity';
 import { StudyLog } from 'src/study-logs/entities/study-log.entity';
 import { TestResult } from 'src/test-results/entities/test-result.entity';
@@ -50,4 +51,7 @@ export class User {
 
   @OneToMany((_type) => StudyLog, (studyLog) => studyLog.user, { eager: true })
   studyLogs: StudyLog[];
+
+  @OneToMany((_type) => Comment, (comment) => comment.user, { eager: true })
+  comments: Comment[];
 }
