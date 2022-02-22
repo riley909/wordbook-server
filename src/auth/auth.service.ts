@@ -33,4 +33,9 @@ export class AuthService {
       throw new UnauthorizedException('Please check your login credentials');
     }
   }
+
+  async getUsers() {
+    const users = await this.usersRepository.find();
+    return users;
+  }
 }
