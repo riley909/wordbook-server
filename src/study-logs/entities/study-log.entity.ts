@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { User } from 'src/auth/user.entity';
+import { Comment } from 'src/comments/entities/comment.entity';
 import { TestResult } from 'src/test-results/entities/test-result.entity';
 import {
   Column,
@@ -8,6 +9,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -32,4 +34,7 @@ export class StudyLog {
   })
   @JoinTable()
   testResults: TestResult[];
+
+  @OneToMany((_type) => Comment, (comment) => comment.studyLog)
+  comments: Comment[];
 }
