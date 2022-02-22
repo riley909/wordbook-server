@@ -9,6 +9,7 @@ import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
+import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -58,6 +59,30 @@ export class AuthService {
     }
     return {
       message: `User with id "${id}" is soft deleted`,
+    };
+  }
+
+  async updateUserPassword(
+    id: number,
+    updateUserPasswordDto: UpdateUserPasswordDto,
+  ) {
+    const { password } = updateUserPasswordDto;
+    const user = await this.getUserById(id);
+
+    const checkPwd = await bcrypt.compare(password, user.password);
+    if (checkPwd) {
+      return {
+        message: `Can not use same password`,
+      };
+    }
+
+    const salt = await bcrypt.genSalt();
+    const hashedPwd = await bcrypt.hash(password, salt);
+    user.password = hashedPwd;
+    await this.usersRepository.save(user);
+
+    return {
+      message: `User password with id "${id}" id updated`,
     };
   }
 }

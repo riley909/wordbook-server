@@ -1,6 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -31,5 +40,13 @@ export class AuthController {
   @Delete(':id')
   softDeleteUser(@Param('id') id: number) {
     return this.authService.softDeleteUser(id);
+  }
+
+  @Patch(':id/password')
+  updateUserPassword(
+    @Param('id') id: number,
+    @Body() updateUserPasswordDto: UpdateUserPasswordDto,
+  ) {
+    return this.authService.updateUserPassword(id, updateUserPasswordDto);
   }
 }
