@@ -32,4 +32,13 @@ export class CommentsService {
     const comments = await this.commentsRepository.find({ user });
     return comments;
   }
+
+  async getCommentById(id: number, user: User) {
+    const comment = await this.commentsRepository.findOne({ id, user });
+
+    if (!comment) {
+      throw new NotFoundException(`Comment with id "${id}" not found`);
+    }
+    return comment;
+  }
 }
