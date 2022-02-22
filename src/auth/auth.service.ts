@@ -10,6 +10,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
+import { UpdateUserExpDto } from './dto/update-user-exp.dto';
 
 @Injectable()
 export class AuthService {
@@ -83,6 +84,29 @@ export class AuthService {
 
     return {
       message: `User password with id "${id}" id updated`,
+    };
+  }
+
+  async updateUserExp(id: number, updateUserExpDto: UpdateUserExpDto) {
+    const { exp, tree } = updateUserExpDto;
+    const user = await this.getUserById(id);
+    const limit = user.level * 100;
+
+    user.exp += exp;
+
+    if (user.exp >= limit) {
+      user.exp -= limit;
+      user.level += 1;
+    }
+
+    if (tree) {
+      user.tree = tree;
+    }
+
+    await this.usersRepository.save(user);
+    return {
+      message: `User with id "${id}" is updated`,
+      user,
     };
   }
 }

@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { UpdateUserExpDto } from './dto/update-user-exp.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 
 @Controller('auth')
@@ -48,5 +49,13 @@ export class AuthController {
     @Body() updateUserPasswordDto: UpdateUserPasswordDto,
   ) {
     return this.authService.updateUserPassword(id, updateUserPasswordDto);
+  }
+
+  @Patch(':id/exp')
+  updateUserExp(
+    @Param('id') id: number,
+    @Body() updateUserExpDto: UpdateUserExpDto,
+  ) {
+    return this.authService.updateUserExp(id, updateUserExpDto);
   }
 }
