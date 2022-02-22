@@ -1,6 +1,16 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { UpdateUserExpDto } from './dto/update-user-exp.dto';
+import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -16,5 +26,36 @@ export class AuthController {
     @Body() authCredentialsDto: AuthCredentialsDto,
   ): Promise<{ accessToken: string }> {
     return this.authService.signIn(authCredentialsDto);
+  }
+
+  @Get()
+  getUsers() {
+    return this.authService.getUsers();
+  }
+
+  @Get(':id')
+  getUserById(@Param('id') id: number) {
+    return this.authService.getUserById(id);
+  }
+
+  @Delete(':id')
+  softDeleteUser(@Param('id') id: number) {
+    return this.authService.softDeleteUser(id);
+  }
+
+  @Patch(':id/password')
+  updateUserPassword(
+    @Param('id') id: number,
+    @Body() updateUserPasswordDto: UpdateUserPasswordDto,
+  ) {
+    return this.authService.updateUserPassword(id, updateUserPasswordDto);
+  }
+
+  @Patch(':id/exp')
+  updateUserExp(
+    @Param('id') id: number,
+    @Body() updateUserExpDto: UpdateUserExpDto,
+  ) {
+    return this.authService.updateUserExp(id, updateUserExpDto);
   }
 }

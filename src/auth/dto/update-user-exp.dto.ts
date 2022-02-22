@@ -5,8 +5,5 @@ export class UpdateUserExpDto {
   exp: number;
 
   @IsOptional()
-  level: number;
-
-  @IsOptional()
   tree: string;
 }
