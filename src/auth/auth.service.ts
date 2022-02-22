@@ -50,4 +50,14 @@ export class AuthService {
     }
     return user;
   }
+
+  async softDeleteUser(id: number) {
+    const result = await this.usersRepository.softDelete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`User with id "${id}" not found`);
+    }
+    return {
+      message: `User with id "${id}" is soft deleted`,
+    };
+  }
 }
