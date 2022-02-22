@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
@@ -26,5 +34,10 @@ export class CommentsController {
   @Get(':id')
   getCommentById(@Param('id') id: number, @GetUser() user: User) {
     return this.commentsService.getCommentById(id, user);
+  }
+
+  @Delete(':id')
+  deleteComment(@Param('id') id: number, @GetUser() user: User) {
+    return this.commentsService.deleteComment(id, user);
   }
 }

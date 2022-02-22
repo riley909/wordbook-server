@@ -41,4 +41,14 @@ export class CommentsService {
     }
     return comment;
   }
+
+  async deleteComment(id: number, user: User) {
+    const result = await this.commentsRepository.delete({ id, user });
+    if (result.affected === 0) {
+      throw new NotFoundException(`Comment with id "${id}" not found`);
+    }
+    return {
+      message: `Comment with id "${id}" is deleted`,
+    };
+  }
 }
