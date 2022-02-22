@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { Repository } from 'typeorm';
@@ -26,5 +26,10 @@ export class CommentsService {
       message: `Comment with id "${result.id}" is created`,
       comment,
     };
+  }
+
+  async getComments(user: User) {
+    const comments = await this.commentsRepository.find({ user });
+    return comments;
   }
 }
