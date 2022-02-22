@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { UsersRepository } from './users.repository';
@@ -37,5 +41,13 @@ export class AuthService {
   async getUsers() {
     const users = await this.usersRepository.find();
     return users;
+  }
+
+  async getUserById(id: number) {
+    const user = await this.usersRepository.findOne(id);
+    if (!user) {
+      throw new NotFoundException(`User with id "${id}" not found`);
+    }
+    return user;
   }
 }
