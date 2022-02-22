@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Comment } from 'src/comments/entities/comment.entity';
 import { Folder } from 'src/folders/folder.entity';
 import { StudyLog } from 'src/study-logs/entities/study-log.entity';
@@ -21,6 +22,7 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()
