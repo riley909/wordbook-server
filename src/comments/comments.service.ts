@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { Repository } from 'typeorm';
 import { CreateCommentDto } from './dto/create-comment.dto';
+import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './entities/comment.entity';
 
 @Injectable()
@@ -49,6 +50,22 @@ export class CommentsService {
     }
     return {
       message: `Comment with id "${id}" is deleted`,
+    };
+  }
+
+  async updateComment(
+    id: number,
+    updateCommentDto: UpdateCommentDto,
+    user: User,
+  ) {
+    const { content } = updateCommentDto;
+    const comment = await this.commentsRepository.findOne({ id, user });
+    comment.content = content;
+    await this.commentsRepository.save(comment);
+
+    return {
+      message: `Comment with id "${id}" is updated`,
+      comment,
     };
   }
 }
