@@ -19,9 +19,15 @@ export class StudyLogsService {
 
   async createStudyLog(createStudyLogDto: CreateStudyLogDto, user: User) {
     const { content, testResultId } = createStudyLogDto;
-    const testResults = await this.testResultsRepository.find({
-      where: { id: In(testResultId) },
-    });
+
+    let testResults;
+    if (testResultId) {
+      testResults = await this.testResultsRepository.find({
+        where: { id: In(testResultId) },
+      });
+    } else {
+      testResults = null;
+    }
 
     const studyLog = await this.studyLogsRepository.create({
       content,
@@ -29,6 +35,7 @@ export class StudyLogsService {
       testResults,
     });
     const result = await this.studyLogsRepository.save(studyLog);
+
     return {
       message: `Study log with id "${result.id}" is created`,
       studyLog,
