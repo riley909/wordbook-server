@@ -11,7 +11,6 @@ import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { UpdateUserExpDto } from './dto/update-user-exp.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
-import { User } from './user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -37,6 +36,11 @@ export class AuthController {
   @Get(':id')
   getUserById(@Param('id') id: number) {
     return this.authService.getUserById(id);
+  }
+
+  @Get('/email/:email')
+  getUserByEmail(@Param('email') email: string) {
+    return this.authService.getUserByEmail(email);
   }
 
   @Delete(':id')
