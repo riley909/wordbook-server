@@ -34,6 +34,12 @@ export class AuthController {
     response.cookie('Authorization', token);
   }
 
+  @Post('/signout')
+  async signOut(@Res({ passthrough: true }) response: Response) {
+    const token = await (await this.authService.signOut()).accessToken;
+    response.cookie('Authorization', token);
+  }
+
   @Get()
   getUsers() {
     return this.authService.getUsers();
