@@ -11,7 +11,6 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 import { UpdateUserExpDto } from './dto/update-user-exp.dto';
-import { User } from './user.entity';
 
 @Injectable()
 export class AuthService {
@@ -50,6 +49,14 @@ export class AuthService {
     const user = await this.usersRepository.findOne(id);
     if (!user) {
       throw new NotFoundException(`User with id "${id}" not found`);
+    }
+    return user;
+  }
+
+  async getUserByEmail(email: string) {
+    const user = await this.usersRepository.findOne({ email });
+    if (!user) {
+      throw new NotFoundException(`User email "${email}" not found`);
     }
     return user;
   }
