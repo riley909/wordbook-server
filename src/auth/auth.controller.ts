@@ -6,7 +6,9 @@ import {
   Param,
   Patch,
   Post,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { UpdateUserExpDto } from './dto/update-user-exp.dto';
@@ -22,10 +24,20 @@ export class AuthController {
   }
 
   @Post('/signin')
-  signIn(
+  async signIn(
     @Body() authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ accessToken: string }> {
-    return this.authService.signIn(authCredentialsDto);
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const token = await (
+      await this.authService.signIn(authCredentialsDto)
+    ).accessToken;
+    response.cookie('Authorization', token);
+  }
+
+  @Post('/signout')
+  async signOut(@Res({ passthrough: true }) response: Response) {
+    const token = await (await this.authService.signOut()).accessToken;
+    response.cookie('Authorization', token);
   }
 
   @Get()
