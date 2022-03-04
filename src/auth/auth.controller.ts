@@ -27,11 +27,12 @@ export class AuthController {
   async signIn(
     @Body() authCredentialsDto: AuthCredentialsDto,
     @Res({ passthrough: true }) response: Response,
-  ) {
-    const token = await (
+  ): Promise<{ accessToken: string }> {
+    const accessToken = await (
       await this.authService.signIn(authCredentialsDto)
     ).accessToken;
-    response.cookie('Authorization', token);
+    response.cookie('Authorization', accessToken);
+    return { accessToken };
   }
 
   @Post('/signout')
