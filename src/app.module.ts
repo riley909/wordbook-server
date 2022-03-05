@@ -8,6 +8,8 @@ import { WordsModule } from './words/words.module';
 import { TestResultsModule } from './test-results/test-results.module';
 import { StudyLogsModule } from './study-logs/study-logs.module';
 import { CommentsModule } from './comments/comments.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -28,5 +30,7 @@ import { CommentsModule } from './comments/comments.module';
     StudyLogsModule,
     CommentsModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
