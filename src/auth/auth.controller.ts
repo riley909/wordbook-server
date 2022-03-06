@@ -37,8 +37,8 @@ export class AuthController {
 
   @Post('/signout')
   async signOut(@Res({ passthrough: true }) response: Response) {
-    const token = await (await this.authService.signOut()).accessToken;
-    response.cookie('Authorization', token);
+    response.clearCookie('Authorization');
+    return this.authService.signOut();
   }
 
   @Get()
