@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   async signOut() {
-    return { accessToken: '' };
+    return null;
   }
 
   async getUsers() {
