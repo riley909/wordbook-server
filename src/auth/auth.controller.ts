@@ -6,9 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   Res,
+  UseGuards,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { AuthGuard } from '@nestjs/passport';
+import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { UpdateUserExpDto } from './dto/update-user-exp.dto';
@@ -33,6 +36,12 @@ export class AuthController {
     ).accessToken;
     response.cookie('Authorization', accessToken);
     return { accessToken };
+  }
+
+  @UseGuards(AuthGuard())
+  @Post('profile')
+  async getProfile(@Req() req: Request) {
+    return req.user;
   }
 
   @Post('/signout')
