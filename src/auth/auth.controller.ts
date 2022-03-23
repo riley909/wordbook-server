@@ -44,12 +44,6 @@ export class AuthController {
     return req.user;
   }
 
-  @Post('/signout')
-  async signOut(@Res({ passthrough: true }) response: Response) {
-    response.clearCookie('Authorization');
-    return this.authService.signOut();
-  }
-
   @Get()
   getUsers() {
     return this.authService.getUsers();
