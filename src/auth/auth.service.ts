@@ -40,10 +40,6 @@ export class AuthService {
     }
   }
 
-  async signOut() {
-    return null;
-  }
-
   async getUsers() {
     const users = await this.usersRepository.find();
     return users;
