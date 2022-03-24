@@ -7,15 +7,8 @@ import { Folder } from './folder.entity';
 @EntityRepository(Folder)
 export class FoldersRepository extends Repository<Folder> {
   async getFolders(user: User): Promise<Folder[]> {
-    const query = this.createQueryBuilder('folder');
-    query.where({ user });
-
-    try {
-      const folders = await query.getMany();
-      return folders;
-    } catch (error) {
-      console.log(error.stack);
-    }
+    const folders = this.find({ user });
+    return folders;
   }
 
   async getFolderById(id: number, user: User): Promise<Folder> {
