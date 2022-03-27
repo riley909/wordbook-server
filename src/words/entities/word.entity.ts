@@ -3,6 +3,7 @@ import { User } from 'src/auth/user.entity';
 import { Folder } from 'src/folders/folder.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -19,6 +20,9 @@ export class Word {
 
   @Column()
   status: number;
+
+  @CreateDateColumn()
+  createdAt: Date;
 
   @ManyToOne((_type) => User, (user) => user.words, { eager: false })
   @Exclude({ toPlainOnly: true })
