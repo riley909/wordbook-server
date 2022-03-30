@@ -7,7 +7,10 @@ import { Folder } from './folder.entity';
 @EntityRepository(Folder)
 export class FoldersRepository extends Repository<Folder> {
   async getFolders(user: User): Promise<Folder[]> {
-    const folders = this.find({ user });
+    const folders = this.find({
+      where: { user },
+      order: { id: 'DESC' },
+    });
     return folders;
   }
 
