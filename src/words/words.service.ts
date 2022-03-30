@@ -49,13 +49,16 @@ export class WordsService {
   }
 
   async findWords(findWordsDto: FindWordsDto, user: User) {
-    const { folderId } = findWordsDto;
+    const { folderId, sort = 'DESC' } = findWordsDto;
     const query = this.wordsRepository.createQueryBuilder('word');
     query.where({ user });
 
     if (folderId) {
       query.andWhere('word.folderId = :folderId', { folderId });
     }
+
+    if (sort === 'DESC') query.orderBy('word.createdAt', 'DESC');
+    if (sort === 'ASC') query.orderBy('word.createdAt', 'ASC');
 
     try {
       const words = await query.getMany();
