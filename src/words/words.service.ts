@@ -49,7 +49,12 @@ export class WordsService {
   }
 
   async findWords(findWordsDto: FindWordsDto, user: User) {
-    const { folderId, sort } = findWordsDto;
+    let { folderId, sort, limit, offset } = findWordsDto;
+    folderId = folderId;
+    sort = sort || 'DESC';
+    limit = limit || 10;
+    offset = offset || 1;
+
     const query = this.wordsRepository.createQueryBuilder('word');
     query.where({ user });
 
@@ -59,6 +64,8 @@ export class WordsService {
 
     if (sort === 'DESC') query.orderBy('word.createdAt', 'DESC');
     if (sort === 'ASC') query.orderBy('word.createdAt', 'ASC');
+
+    if (limit && offset) query.take(limit).skip(limit * (offset - 1));
 
     try {
       const words = await query.getMany();

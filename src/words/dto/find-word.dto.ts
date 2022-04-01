@@ -6,4 +6,10 @@ export class FindWordsDto {
 
   @IsOptional()
   sort: string;
+
+  @IsOptional()
+  limit: number;
+
+  @IsOptional()
+  offset: number;
 }
