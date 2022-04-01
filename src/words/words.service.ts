@@ -68,7 +68,7 @@ export class WordsService {
     if (limit && offset) query.take(limit).skip(limit * (offset - 1));
 
     try {
-      const words = await query.getMany();
+      const words = await query.getManyAndCount();
       return words;
     } catch (error) {
       console.log(error.stack);
