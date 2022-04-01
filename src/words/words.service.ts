@@ -49,7 +49,7 @@ export class WordsService {
   }
 
   async findWords(findWordsDto: FindWordsDto, user: User) {
-    const { folderId, sort = 'DESC' } = findWordsDto;
+    const { folderId, sort } = findWordsDto;
     const query = this.wordsRepository.createQueryBuilder('word');
     query.where({ user });
 
