@@ -13,7 +13,7 @@ export class FoldersService {
     private foldersRepository: FoldersRepository,
   ) {}
 
-  getFolders(getFoldersDto: GetFoldersDto, user: User): Promise<Folder[]> {
+  getFolders(getFoldersDto: GetFoldersDto, user: User) {
     return this.foldersRepository.getFolders(getFoldersDto, user);
   }
 

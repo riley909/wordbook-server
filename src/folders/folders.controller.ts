@@ -23,10 +23,7 @@ export class FoldersController {
   constructor(private foldersService: FoldersService) {}
 
   @Get()
-  getFolders(
-    @Query() getFoldersDto: GetFoldersDto,
-    @GetUser() user: User,
-  ): Promise<Folder[]> {
+  getFolders(@Query() getFoldersDto: GetFoldersDto, @GetUser() user: User) {
     return this.foldersService.getFolders(getFoldersDto, user);
   }
 

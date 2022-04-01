@@ -7,15 +7,12 @@ import { Folder } from './folder.entity';
 
 @EntityRepository(Folder)
 export class FoldersRepository extends Repository<Folder> {
-  async getFolders(
-    getFoldersDto: GetFoldersDto,
-    user: User,
-  ): Promise<Folder[]> {
+  async getFolders(getFoldersDto: GetFoldersDto, user: User) {
     let { limit, offset } = getFoldersDto;
     limit = limit || 5;
     offset = offset || 1;
 
-    const folders = this.find({
+    const folders = this.findAndCount({
       where: { user },
       order: { id: 'DESC' },
       take: limit,
