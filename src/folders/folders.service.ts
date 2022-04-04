@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { FolderNameDto } from './dto/folder-name.dto';
+import { GetFoldersDto } from './dto/get-folders-dto';
 import { Folder } from './folder.entity';
 import { FoldersRepository } from './folders.repository';
 
@@ -12,8 +13,8 @@ export class FoldersService {
     private foldersRepository: FoldersRepository,
   ) {}
 
-  getFolders(user: User): Promise<Folder[]> {
-    return this.foldersRepository.getFolders(user);
+  getFolders(getFoldersDto: GetFoldersDto, user: User) {
+    return this.foldersRepository.getFolders(getFoldersDto, user);
   }
 
   getFolderById(id: number, user: User): Promise<Folder> {

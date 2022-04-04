@@ -1,12 +1,6 @@
 import { IsOptional } from 'class-validator';
 
-export class FindWordsDto {
-  @IsOptional()
-  folderId: number;
-
-  @IsOptional()
-  sort: string;
-
+export class GetFoldersDto {
   @IsOptional()
   limit: number;
 

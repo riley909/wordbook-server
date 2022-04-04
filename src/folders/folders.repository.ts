@@ -2,14 +2,21 @@ import { ConflictException, NotFoundException } from '@nestjs/common';
 import { User } from 'src/auth/user.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { FolderNameDto } from './dto/folder-name.dto';
+import { GetFoldersDto } from './dto/get-folders-dto';
 import { Folder } from './folder.entity';
 
 @EntityRepository(Folder)
 export class FoldersRepository extends Repository<Folder> {
-  async getFolders(user: User): Promise<Folder[]> {
-    const folders = this.find({
+  async getFolders(getFoldersDto: GetFoldersDto, user: User) {
+    let { limit, offset } = getFoldersDto;
+    limit = limit || 5;
+    offset = offset || 1;
+
+    const folders = this.findAndCount({
       where: { user },
       order: { id: 'DESC' },
+      take: limit,
+      skip: limit * (offset - 1),
     });
     return folders;
   }

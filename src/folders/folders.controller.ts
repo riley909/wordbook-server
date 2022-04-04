@@ -6,12 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
 import { FolderNameDto } from './dto/folder-name.dto';
+import { GetFoldersDto } from './dto/get-folders-dto';
 import { Folder } from './folder.entity';
 import { FoldersService } from './folders.service';
 
@@ -21,8 +23,8 @@ export class FoldersController {
   constructor(private foldersService: FoldersService) {}
 
   @Get()
-  getFolders(@GetUser() user: User): Promise<Folder[]> {
-    return this.foldersService.getFolders(user);
+  getFolders(@Query() getFoldersDto: GetFoldersDto, @GetUser() user: User) {
+    return this.foldersService.getFolders(getFoldersDto, user);
   }
 
   @Get('/:id')
