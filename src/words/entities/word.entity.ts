@@ -28,7 +28,10 @@ export class Word {
   @Exclude({ toPlainOnly: true })
   user: User;
 
-  @ManyToOne((_type) => Folder, (folder) => folder.words, { eager: false })
+  @ManyToOne((_type) => Folder, (folder) => folder.words, {
+    eager: false,
+    onDelete: 'CASCADE',
+  })
   folder: Folder;
   @RelationId((word: Word) => word.folder)
   folderId: number;
