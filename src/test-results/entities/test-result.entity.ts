@@ -24,7 +24,10 @@ export class TestResult {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne((_type) => User, (user) => user.testResults, { eager: false })
+  @ManyToOne((_type) => User, (user) => user.testResults, {
+    eager: false,
+    onDelete: 'CASCADE',
+  })
   @Exclude({ toPlainOnly: true })
   user: User;
 

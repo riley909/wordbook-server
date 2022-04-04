@@ -23,7 +23,10 @@ export class Comment {
   @Column({ nullable: true })
   refComment: number;
 
-  @ManyToOne((_type) => User, (user) => user.comments, { eager: false })
+  @ManyToOne((_type) => User, (user) => user.comments, {
+    eager: false,
+    onDelete: 'CASCADE',
+  })
   @Exclude({ toPlainOnly: true })
   user: User;
 

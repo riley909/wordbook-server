@@ -24,7 +24,10 @@ export class Word {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne((_type) => User, (user) => user.words, { eager: false })
+  @ManyToOne((_type) => User, (user) => user.words, {
+    eager: false,
+    onDelete: 'CASCADE',
+  })
   @Exclude({ toPlainOnly: true })
   user: User;
 
