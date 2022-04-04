@@ -23,10 +23,15 @@ export class Comment {
   @Column({ nullable: true })
   refComment: number;
 
-  @ManyToOne((_type) => User, (user) => user.comments, { eager: false })
+  @ManyToOne((_type) => User, (user) => user.comments, {
+    eager: false,
+    onDelete: 'CASCADE',
+  })
   @Exclude({ toPlainOnly: true })
   user: User;
 
-  @ManyToOne((_type) => StudyLog, (studyLog) => studyLog.comments)
+  @ManyToOne((_type) => StudyLog, (studyLog) => studyLog.comments, {
+    onDelete: 'CASCADE',
+  })
   studyLog: StudyLog;
 }

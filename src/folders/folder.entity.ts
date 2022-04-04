@@ -17,7 +17,10 @@ export class Folder {
   @Column()
   name: string;
 
-  @ManyToOne((_type) => User, (user) => user.folders, { eager: false })
+  @ManyToOne((_type) => User, (user) => user.folders, {
+    eager: false,
+    onDelete: 'CASCADE',
+  })
   @Exclude({ toPlainOnly: true })
   user: User;
 
