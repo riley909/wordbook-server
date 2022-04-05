@@ -11,6 +11,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  RelationId,
 } from 'typeorm';
 
 @Entity()
@@ -38,6 +39,8 @@ export class StudyLog {
   @JoinTable()
   testResults: TestResult[];
 
-  @OneToMany((_type) => Comment, (comment) => comment.studyLog)
+  @OneToMany((_type) => Comment, (comment) => comment.studyLog, { eager: true })
   comments: Comment[];
+  @RelationId((studyLog: StudyLog) => studyLog.comments)
+  commentIds: number[];
 }
