@@ -66,6 +66,7 @@ export class StudyLogsService {
     }
 
     query.take(limit).skip(limit * (offset - 1));
+    query.orderBy('study-log.id', 'DESC');
 
     try {
       const total = await query.getCount();
