@@ -98,13 +98,15 @@ export class StudyLogsService {
     const { content, testResultId } = updateStudyLogDto;
 
     const studyLog = await this.studyLogsRepository.findOne({ id, user });
-    const testResults = await this.testResultsRepository.find({
-      where: { id: In(testResultId) },
-    });
+
+    if (testResultId) {
+      const testResults = await this.testResultsRepository.find({
+        where: { id: In(testResultId) },
+      });
+      studyLog.testResults = testResults;
+    }
 
     studyLog.content = content;
-    studyLog.testResults = testResults;
-
     await this.studyLogsRepository.save(studyLog);
 
     return {
