@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -13,6 +14,7 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
+import { GetCommentsDto } from './dto/get-comments.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Controller('comments')
@@ -29,8 +31,8 @@ export class CommentsController {
   }
 
   @Get()
-  getComments(@GetUser() user: User) {
-    return this.commentsService.getComments(user);
+  getComments(@Query() getCommentsDto: GetCommentsDto, @GetUser() user: User) {
+    return this.commentsService.getComments(getCommentsDto, user);
   }
 
   @Get(':id')
