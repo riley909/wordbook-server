@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { Repository } from 'typeorm';
 import { CreateCommentDto } from './dto/create-comment.dto';
+import { GetCommentsDto } from './dto/get-comments.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './entities/comment.entity';
 
@@ -29,9 +30,35 @@ export class CommentsService {
     };
   }
 
-  async getComments(user: User) {
-    const comments = await this.commentsRepository.find({ user });
-    return comments;
+  async getComments(getCommentsDto: GetCommentsDto, user: User) {
+    let { studyLogId, limit, offset } = getCommentsDto;
+    limit = limit || 5;
+    offset = offset || 1;
+
+    const query = await this.commentsRepository.createQueryBuilder('comment');
+    query.where({ user });
+
+    if (studyLogId) {
+      query.andWhere('comment.studyLogId = :studyLogId', {
+        studyLogId: studyLogId,
+      });
+    }
+
+    query.orderBy('comment.id', 'DESC');
+    query.take(limit).skip(limit * (offset - 1));
+
+    try {
+      const total = await query.getCount();
+      const comments = await query.getMany();
+      return {
+        total: total,
+        limit: limit,
+        currentPage: offset,
+        data: comments,
+      };
+    } catch (error) {
+      console.log(error.stack);
+    }
   }
 
   async getCommentById(id: number, user: User) {
