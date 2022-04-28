@@ -10,6 +10,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
@@ -19,7 +20,10 @@ import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private configService: ConfigService,
+  ) {}
 
   @Post('/signup')
   signUp(@Body() authCredentialsDto: AuthCredentialsDto) {
@@ -34,7 +38,9 @@ export class AuthController {
     const accessToken = await (
       await this.authService.signIn(authCredentialsDto)
     ).accessToken;
-    response.cookie('Authorization', accessToken);
+    response.cookie('Authorization', accessToken, {
+      maxAge: this.configService.get('JWT_EXPIRATION') * 1000 * 60 * 60 * 24,
+    });
     return { accessToken };
   }
 
