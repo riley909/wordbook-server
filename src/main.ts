@@ -9,7 +9,10 @@ async function bootstrap() {
   const logger = new Logger();
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'http://ec2-18-222-33-252.us-east-2.compute.amazonaws.com',
+    ],
     allowedHeaders: ['content-type', 'Authorization'],
     credentials: true,
   });
