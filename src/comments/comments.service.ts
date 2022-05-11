@@ -51,6 +51,7 @@ export class CommentsService {
       const total = await query.getCount();
       const comments = await query.getMany();
       return {
+        studyLogId: studyLogId,
         total: total,
         limit: limit,
         currentPage: offset,
