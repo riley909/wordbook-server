@@ -1,73 +1,38 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# WORDBOOK
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+WORDBOOK은 한국어-인도네시아어 사전을 이용해 단어를 찾고 공부한 내용을 기록할 수 있는 서비스 입니다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<kbd>
+<img width="1019" alt="스크린샷 2022-05-13 오전 12 10 07" src="https://user-images.githubusercontent.com/67426853/168297943-cb362c36-5528-49e5-bb5f-3be72187f5bf.png">
+</kbd>
 
-## Description
+&emsp;
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<kbd>
+<img width="1024" alt="스크린샷 2022-05-13 오후 10 21 44" src="https://user-images.githubusercontent.com/67426853/168297951-51ef8c9d-7be9-458a-ae22-58dd2c41a2b6.png">
+</kbd>
 
-## Installation
+&emsp;
 
-```bash
-$ npm install
-```
+<div>
+  <kbd>
+<img width="350" alt="스크린샷 2022-05-13 오후 10 32 09" src="https://user-images.githubusercontent.com/67426853/168297961-575cc617-d6ed-4a48-afe4-15396805ce58.png">
+    </kbd>
+  &emsp;&emsp;
+  <kbd>
+<img width="350" alt="스크린샷 2022-05-13 오후 10 33 08" src="https://user-images.githubusercontent.com/67426853/168297964-644a4eaf-7513-4ae8-a596-b00ec032c4df.png">
+    </kbd>
+</div>
 
-## Running the app
+<br/>
+<br/>
 
-```bash
-# development
-$ npm run start
+### [배포 링크](https://bit.ly/3P4ogPg)
 
-# watch mode
-$ npm run start:dev
+## Stacks
 
-# production mode
-$ npm run start:prod
-```
+<img src="https://user-images.githubusercontent.com/67426853/168419505-e1d72b2a-d171-42d3-bd09-a441796caf65.png"/>
 
-## Test
+## More Information
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+#### [WORDBOOK Wiki](https://github.com/riley909/wordbook-server/wiki)
